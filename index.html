@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Heat Press Studio</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #222;
+            --text: #f0f0f0;
+            --muted: #666;
+            --accent: #e8ff4d;
+            --accent-dark: #c8df2d;
+            --green: #22c55e;
+            --red: #ef4444;
+            --radius: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 48px 24px 80px;
+        }
+
+        .container {
+            max-width: 620px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* RESET BUTTON */
+        .reset-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: 'Syne', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.15s;
+            z-index: 100;
+        }
+
+        .reset-btn:hover {
+            border-color: #444;
+            color: var(--text);
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-pill {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 36px;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 15px;
+            font-weight: 300;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        /* FORM FIELDS */
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.15s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #444;
+        }
+
+        input:disabled,
+        select:disabled,
+        textarea:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+        }
+
+        select option {
+            background: #1a1a1a;
+        }
+
+        textarea {
+            resize: none;
+            height: 100px;
+            line-height: 1.5;
+        }
+
+        .helper {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        /* BUTTONS */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Syne', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-generate {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .btn-generate:hover:not(:disabled) {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-approve {
+            background: var(--green);
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        .btn-approve:hover:not(:disabled) {
+            background: #16a34a;
+            transform: translateY(-1px);
+        }
+
+        /* IMAGE SECTION */
+        #imageSection {
+            display: none;
+        }
+
+        .loading-box {
+            display: none;
+            text-align: center;
+            padding: 48px 24px;
+        }
+
+        .spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid #222;
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.75s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-box p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* SINGLE IMAGE */
+        #singleImageView {
+            display: none;
+        }
+
+        .image-wrapper {
+            position: relative;
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .tap-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 100px;
+            pointer-events: none;
+        }
+
+        .generated-img {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .image-helper {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--muted);
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* DUAL IMAGE */
+        #dualImageView {
+            display: none;
+        }
+
+        .dual-label {
+            font-size: 13px;
+            color: var(--muted);
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .selectable-image {
+            cursor: pointer;
+            border-radius: 10px;
+            border: 3px solid transparent;
+            overflow: hidden;
+            transition: border-color 0.2s, transform 0.15s;
+            position: relative;
+        }
+
+        .selectable-image:hover {
+            transform: scale(1.01);
+        }
+
+        .selectable-image.selected {
+            border-color: var(--accent);
+        }
+
+        .selectable-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .select-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--accent);
+            color: #000;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            display: none;
+        }
+
+        .selectable-image.selected .select-badge {
+            display: block;
+        }
+
+        .expand-hint {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 100px;
+        }
+
+        .select-instruction {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        /* LIGHTBOX */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #lightbox.open {
+            display: flex;
+        }
+
+        #lightbox img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+        #lightbox .close-hint {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+        }
+
+        /* SUCCESS */
+        #successSection {
+            display: none;
+            text-align: center;
+            padding: 60px 24px;
+        }
+
+        .success-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .success-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .success-sub {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .queue-badge {
+            display: inline-block;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 36px;
+            margin-bottom: 24px;
+        }
+
+        .queue-badge-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .queue-badge-id {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 32px;
+            color: var(--accent);
+        }
+
+        .save-callout {
+            background: #1a1500;
+            border: 1px solid #3a3000;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .save-callout-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .save-callout-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #d4b84a;
+        }
+
+        .save-callout-text strong {
+            color: #e8d060;
+            display: block;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- RESET BUTTON -->
+    <button class="reset-btn" onclick="handleReset()">↺ Reset</button>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="close-hint">Tap anywhere to close</span>
+        <img id="lightboxImg" src="" alt="Full size preview" />
+    </div>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="logo-pill">House of Etch</div>
+            <h1>AI Heat Press<br />Studio</h1>
+            <p class="subtitle">Design your custom item in seconds.</p>
+        </div>
+
+        <!-- MAIN FORM -->
+        <div id="mainForm">
+            <div class="card">
+                <p class="card-title">Your Info</p>
+                <div class="row">
+                    <div class="field">
+                        <label>First Name</label>
+                        <input type="text" id="firstName" placeholder="John" />
+                    </div>
+                    <div class="field">
+                        <label>Last Name</label>
+                        <input type="text" id="lastName" placeholder="Doe" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="card-title">Product</p>
+                <div class="field">
+                    <label>Item</label>
+                    <select id="product" onchange="handleProductChange()">
+                        <option value="">Select a product</option>
+                        <option value="T-Shirt">T-Shirt</option>
+                        <option value="Tote Bag">Tote Bag</option>
+                        <option value="Hat">Hat</option>
+                    </select>
+                </div>
+                <div class="field" id="sizeField" style="display:none;">
+                    <label>Size</label>
+                    <select id="size">
+                        <option value="">Select size</option>
+                        <option>XS</option>
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                        <option>XL</option>
+                        <option>XXL</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="card-title">Your Design Prompt</p>
+                <div class="field">
+                    <label>Describe what you want</label>
+                    <textarea id="prompt"
+                        placeholder="Example: A retro Miami sunset with palm trees, neon colors, and my initials."></textarea>
+                    <p class="helper">The more detail you give, the better the result.</p>
+                </div>
+                <button class="btn btn-generate" id="generateBtn" onclick="generateImage()">✦ Generate My
+                    Design</button>
+            </div>
+
+            <!-- IMAGE SECTION -->
+            <div id="imageSection" class="card">
+                <p class="card-title" id="imageSectionTitle">Your Design</p>
+
+                <div class="loading-box" id="loadingBox">
+                    <div class="spinner"></div>
+                    <p id="loadingText">Creating your design…</p>
+                </div>
+
+                <!-- Single image: after attempt 1 -->
+                <div id="singleImageView">
+                    <div class="image-wrapper" onclick="openLightbox(generatedImages[0])">
+                        <img id="singleImg" class="generated-img" src="" alt="Your design" />
+                        <span class="tap-hint">👆 Tap to enlarge</span>
+                    </div>
+                    <p class="image-helper">Not happy with this? Edit your prompt above and click <strong>Generate My
+                            Design</strong> again.</p>
+                </div>
+
+                <!-- Dual images: after attempt 2 -->
+                <div id="dualImageView">
+                    <p class="dual-label">Tap an image to select it, then approve.</p>
+                    <div class="images-grid">
+                        <div class="selectable-image" id="card1" onclick="selectImage(0)">
+                            <img id="dualImg1" src="" alt="Design 1" />
+                            <span class="select-badge">✓ Selected</span>
+                            <span class="expand-hint"
+                                onclick="event.stopPropagation(); openLightbox(generatedImages[0])">🔍</span>
+                        </div>
+                        <div class="selectable-image" id="card2" onclick="selectImage(1)">
+                            <img id="dualImg2" src="" alt="Design 2" />
+                            <span class="select-badge">✓ Selected</span>
+                            <span class="expand-hint"
+                                onclick="event.stopPropagation(); openLightbox(generatedImages[1])">🔍</span>
+                        </div>
+                    </div>
+                    <p class="select-instruction" id="selectInstruction">Tap a design to select it</p>
+                </div>
+
+                <button class="btn btn-approve" id="approveBtn" onclick="approveImage()" disabled>✓ Approve &amp;
+                    Submit</button>
+            </div>
+        </div>
+
+        <!-- SUCCESS STATE -->
+        <div id="successSection">
+            <span class="success-icon">🎉</span>
+            <p class="success-title">You're in the queue!</p>
+            <p class="success-sub">Your design has been sent to the print team.<br />Please wait for your name to be
+                called.</p>
+            <div class="queue-badge">
+                <p class="queue-badge-label">Your Order ID</p>
+                <p class="queue-badge-id" id="queueDisplay">—</p>
+            </div>
+            <div class="save-callout">
+                <span class="save-callout-icon">📸</span>
+                <div class="save-callout-text">
+                    <strong>Save your Order ID!</strong>
+                    Take a screenshot of this screen or note it down — you'll need it to collect your item when it's
+                    ready.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ── CONFIG ──────────────────────────────────────────────────────
+        const N8N_IMAGE_WEBHOOK = 'https://houseofetch.app.n8n.cloud/webhook/161a5c82-e471-4036-b037-6d65de04407e';
+        const N8N_SUBMIT_WEBHOOK = 'https://houseofetch.app.n8n.cloud/webhook/b2fdf95f-b5c9-4518-8fec-927b5e7ca5cd';
+        const MAX_ATTEMPTS = 2;
+        // ───────────────────────────────────────────────────────────────
+
+        let attemptCount = 0;
+        let generatedImages = [];
+        let selectedIndex = -1;
+        let queueId = '';
+
+        function handleProductChange() {
+            const val = document.getElementById('product').value;
+            document.getElementById('sizeField').style.display = val === 'T-Shirt' ? 'block' : 'none';
+        }
+
+        function makeQueueId() {
+            const n = new Date();
+            const pad = x => String(x).padStart(2, '0');
+            return `${pad(n.getHours())}${pad(n.getMinutes())}${pad(n.getSeconds())}`;
+        }
+
+        function validate() {
+            const fn = document.getElementById('firstName').value.trim();
+            const ln = document.getElementById('lastName').value.trim();
+            const pr = document.getElementById('product').value;
+            const sz = document.getElementById('size').value;
+            const pt = document.getElementById('prompt').value.trim();
+            if (!fn) { alert('Please enter your first name.'); return false; }
+            if (!ln) { alert('Please enter your last name.'); return false; }
+            if (!pr) { alert('Please select a product.'); return false; }
+            if (pr === 'T-Shirt' && !sz) { alert('Please select a size.'); return false; }
+            if (!pt) { alert('Please describe your design.'); return false; }
+            return true;
+        }
+
+        function openLightbox(url) {
+            if (!url) return;
+            document.getElementById('lightboxImg').src = url;
+            document.getElementById('lightbox').classList.add('open');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('open');
+        }
+
+        function selectImage(index) {
+            selectedIndex = index;
+            document.getElementById('card1').classList.toggle('selected', index === 0);
+            document.getElementById('card2').classList.toggle('selected', index === 1);
+            document.getElementById('selectInstruction').textContent = `Design ${index + 1} selected — tap Approve to confirm.`;
+            document.getElementById('approveBtn').disabled = false;
+        }
+
+        async function generateImage() {
+            if (!validate()) return;
+            if (attemptCount >= MAX_ATTEMPTS) return;
+
+            attemptCount++;
+            if (!queueId) queueId = makeQueueId();
+
+            const isSecond = attemptCount === MAX_ATTEMPTS;
+            const prompt = document.getElementById('prompt').value.trim();
+
+            document.getElementById('imageSection').style.display = 'block';
+            document.getElementById('loadingBox').style.display = 'block';
+            document.getElementById('singleImageView').style.display = 'none';
+            document.getElementById('dualImageView').style.display = 'none';
+            document.getElementById('approveBtn').disabled = true;
+            document.getElementById('generateBtn').disabled = true;
+
+            if (isSecond) {
+                document.getElementById('loadingText').textContent = 'Generating your second design…';
+            }
+
+            try {
+                const res = await fetch(N8N_IMAGE_WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                const data = await res.json();
+                const url = data.image_url;
+                generatedImages.push(url);
+
+                document.getElementById('loadingBox').style.display = 'none';
+
+                if (!isSecond) {
+                    // ── FIRST IMAGE ─────────────────────────────────────────
+                    document.getElementById('singleImg').src = url;
+                    document.getElementById('singleImageView').style.display = 'block';
+                    document.getElementById('generateBtn').disabled = false;
+                    document.getElementById('approveBtn').disabled = false;
+                } else {
+                    // ── SECOND IMAGE — side by side ──────────────────────────
+                    document.getElementById('dualImg1').src = generatedImages[0];
+                    document.getElementById('dualImg2').src = generatedImages[1];
+                    document.getElementById('dualImageView').style.display = 'block';
+                    document.getElementById('imageSectionTitle').textContent = 'Choose Your Design';
+
+                    // Lock prompt + generate
+                    document.getElementById('prompt').disabled = true;
+                    document.getElementById('generateBtn').disabled = true;
+                    document.getElementById('generateBtn').textContent = '✕ Max attempts reached';
+                    document.getElementById('approveBtn').disabled = true;
+                }
+
+            } catch (err) {
+                document.getElementById('loadingBox').style.display = 'none';
+                document.getElementById('generateBtn').disabled = false;
+                alert('Something went wrong. Please try again.');
+                attemptCount--;
+                generatedImages.pop();
+                console.error(err);
+            }
+        }
+
+        async function convertToPng(imageUrl) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    canvas.getContext('2d').drawImage(img, 0, 0);
+                    resolve(canvas.toDataURL('image/png').split(',')[1]);
+                };
+                img.onerror = reject;
+                img.src = imageUrl;
+            });
+        }
+
+        async function approveImage() {
+            let finalUrl = '';
+            if (generatedImages.length === 1) {
+                finalUrl = generatedImages[0];
+            } else {
+                if (selectedIndex === -1) { alert('Please select a design first.'); return; }
+                finalUrl = generatedImages[selectedIndex];
+            }
+
+            document.getElementById('approveBtn').disabled = true;
+            document.getElementById('approveBtn').textContent = 'Converting image…';
+
+            // Build filename: QueueID_FirstName_Product_MMDDYY.png
+            const now = new Date();
+            const eventDate = String(now.getMonth() + 1).padStart(2, '0') +
+                String(now.getDate()).padStart(2, '0') +
+                String(now.getFullYear()).slice(-2);
+            const product = document.getElementById('product').value.replace(/\s+/g, '');
+            const firstName = document.getElementById('firstName').value.trim();
+            const filename = `${queueId}_${firstName}_${product}_${eventDate}.png`;
+
+            let base64Png = '';
+            try {
+                base64Png = await convertToPng(finalUrl);
+            } catch (err) {
+                console.warn('Canvas conversion failed, sending URL instead:', err);
+            }
+
+            document.getElementById('approveBtn').textContent = 'Submitting…';
+
+            const payload = {
+                queue_id: queueId,
+                timestamp: new Date().toISOString(),
+                first_name: firstName,
+                last_name: document.getElementById('lastName').value.trim(),
+                product: document.getElementById('product').value,
+                size: document.getElementById('size').value || 'N/A',
+                prompt: document.getElementById('prompt').value.trim(),
+                image_url: finalUrl,
+                image_base64: base64Png,
+                filename: filename,
+                status: 'Pending'
+            };
+
+            try {
+                await fetch(N8N_SUBMIT_WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error('Submit webhook error:', err);
+            }
+
+            document.getElementById('mainForm').style.display = 'none';
+            document.getElementById('successSection').style.display = 'block';
+            document.getElementById('queueDisplay').textContent = queueId;
+        }
+
+        function handleReset() {
+            const onSuccess = document.getElementById('successSection').style.display === 'block';
+            if (!onSuccess) {
+                const confirmed = confirm('Reset everything? All current data will be lost.');
+                if (!confirmed) return;
+            }
+            doReset();
+        }
+
+        function doReset() {
+            attemptCount = 0;
+            generatedImages = [];
+            selectedIndex = -1;
+            queueId = '';
+
+            ['firstName', 'lastName', 'prompt'].forEach(id => {
+                document.getElementById(id).value = '';
+                document.getElementById(id).disabled = false;
+            });
+            document.getElementById('product').value = '';
+            document.getElementById('size').value = '';
+            document.getElementById('sizeField').style.display = 'none';
+
+            document.getElementById('generateBtn').disabled = false;
+            document.getElementById('generateBtn').textContent = '✦ Generate My Design';
+            document.getElementById('approveBtn').disabled = true;
+            document.getElementById('approveBtn').textContent = '✓ Approve & Submit';
+
+            document.getElementById('imageSection').style.display = 'none';
+            document.getElementById('singleImageView').style.display = 'none';
+            document.getElementById('dualImageView').style.display = 'none';
+            document.getElementById('loadingBox').style.display = 'none';
+            document.getElementById('successSection').style.display = 'none';
+            document.getElementById('mainForm').style.display = 'block';
+
+            document.getElementById('imageSectionTitle').textContent = 'Your Design';
+            document.getElementById('loadingText').textContent = 'Creating your design…';
+            document.getElementById('card1').classList.remove('selected');
+            document.getElementById('card2').classList.remove('selected');
+            document.getElementById('selectInstruction').textContent = 'Tap a design to select it';
+        }
+    </script>
+</body>
+
+</html>
