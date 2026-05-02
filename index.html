@@ -539,6 +539,18 @@
                         <input type="text" id="lastName" placeholder="Doe" />
                     </div>
                 </div>
+                <div class="row">
+                    <div class="field">
+                        <label>Email <span
+                                style="color:var(--muted);font-size:10px;text-transform:none;letter-spacing:0;">optional</span></label>
+                        <input type="email" id="email" placeholder="john@email.com" />
+                    </div>
+                    <div class="field">
+                        <label>Phone <span
+                                style="color:var(--muted);font-size:10px;text-transform:none;letter-spacing:0;">optional</span></label>
+                        <input type="tel" id="phone" placeholder="+1 234 567 8900" />
+                    </div>
+                </div>
             </div>
 
             <div class="card">
@@ -814,6 +826,8 @@
                 first_name: firstName,
                 last_name: document.getElementById('lastName').value.trim(),
                 product: document.getElementById('product').value,
+                email: document.getElementById('email').value.trim() || 'N/A',
+                phone: document.getElementById('phone').value.trim() || 'N/A',
                 size: document.getElementById('size').value || 'N/A',
                 prompt: document.getElementById('prompt').value.trim(),
                 image_url: finalUrl,
@@ -856,6 +870,8 @@
                 document.getElementById(id).value = '';
                 document.getElementById(id).disabled = false;
             });
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
             document.getElementById('product').value = '';
             document.getElementById('size').value = '';
             document.getElementById('sizeField').style.display = 'none';
