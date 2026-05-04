@@ -5,9 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zycus AI T-Shirt & Tote Bag Studio</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
     <style>
         :root {
             --bg: #f4f5f7;
@@ -25,11 +23,7 @@
             --shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'DM Sans', sans-serif;
@@ -65,11 +59,7 @@
             z-index: 100;
             box-shadow: var(--shadow);
         }
-
-        .reset-btn:hover {
-            border-color: #bbb;
-            color: #444;
-        }
+        .reset-btn:hover { border-color: #bbb; color: #444; }
 
         /* HEADER */
         .header {
@@ -81,32 +71,18 @@
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
         }
-
-        .logo-area {
-            margin-bottom: 18px;
-        }
-
-        .logo-area img {
-            height: 50px;
-            width: auto;
-            object-fit: contain;
-        }
-
+        .logo-area { margin-bottom: 18px; }
+        .logo-area img { height: 50px; width: auto; object-fit: contain; }
         h1 {
             font-family: 'Syne', sans-serif;
             font-weight: 800;
             font-size: 26px;
             letter-spacing: -0.5px;
             line-height: 1.2;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
             color: var(--text);
         }
-
-        .subtitle {
-            color: var(--muted);
-            font-size: 14px;
-            font-weight: 300;
-        }
+        .subtitle { color: var(--muted); font-size: 14px; font-weight: 300; }
 
         /* CARDS */
         .card {
@@ -117,7 +93,6 @@
             margin-bottom: 14px;
             box-shadow: var(--shadow);
         }
-
         .card-title {
             font-family: 'Syne', sans-serif;
             font-weight: 700;
@@ -125,23 +100,13 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--muted);
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         /* FORM FIELDS */
-        .row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .field {
-            margin-bottom: 14px;
-        }
-
-        .field:last-child {
-            margin-bottom: 0;
-        }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .field { margin-bottom: 14px; }
+        .field:last-child { margin-bottom: 0; }
 
         label {
             display: block;
@@ -152,7 +117,6 @@
             color: var(--muted);
             margin-bottom: 7px;
         }
-
         label .opt {
             font-size: 10px;
             color: #bbb;
@@ -161,9 +125,7 @@
             font-weight: 400;
         }
 
-        input,
-        select,
-        textarea {
+        input, select, textarea {
             width: 100%;
             padding: 11px 14px;
             background: #fafafa;
@@ -177,23 +139,16 @@
             appearance: none;
             -webkit-appearance: none;
         }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
+        input:focus, select:focus, textarea:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(45, 45, 143, 0.08);
             background: #fff;
         }
-
-        input:disabled,
-        select:disabled,
-        textarea:disabled {
+        input:disabled, select:disabled, textarea:disabled {
             opacity: 0.45;
             cursor: not-allowed;
             background: #f0f0f0;
         }
-
         select {
             cursor: pointer;
             background-color: #fafafa;
@@ -202,24 +157,22 @@
             background-position: right 12px center;
             padding-right: 36px;
         }
+        select option { background: #fff; color: #111; }
+        textarea { resize: none; height: 96px; line-height: 1.5; }
+        .helper { font-size: 11px; color: #bbb; margin-top: 5px; font-style: italic; }
 
-        select option {
-            background: #fff;
-            color: #111;
+        /* EMAIL ERROR */
+        .field-input.error {
+            border-color: #dc2626 !important;
+            background: #fff5f5;
         }
-
-        textarea {
-            resize: none;
-            height: 96px;
-            line-height: 1.5;
-        }
-
-        .helper {
+        .field-error {
             font-size: 11px;
-            color: #bbb;
+            color: #dc2626;
             margin-top: 5px;
-            font-style: italic;
+            display: none;
         }
+        .field-error.visible { display: block; }
 
         /* BUTTONS */
         .btn {
@@ -234,72 +187,33 @@
             cursor: pointer;
             transition: all 0.15s;
         }
-
-        .btn:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .btn-generate {
-            background: var(--accent);
-            color: #fff;
-        }
-
+        .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; }
+        .btn-generate { background: var(--accent); color: #fff; }
         .btn-generate:hover:not(:disabled) {
             background: var(--accent-dark);
             transform: translateY(-1px);
             box-shadow: 0 4px 16px rgba(45, 45, 143, 0.25);
         }
-
-        .btn-approve {
-            background: var(--green);
-            color: #fff;
-            margin-top: 18px;
-        }
-
-        .btn-approve:hover:not(:disabled) {
-            background: #156040;
-            transform: translateY(-1px);
-        }
+        .btn-approve { background: var(--green); color: #fff; margin-top: 18px; }
+        .btn-approve:hover:not(:disabled) { background: #156040; transform: translateY(-1px); }
 
         /* IMAGE SECTION */
-        #imageSection {
-            display: none;
-        }
+        #imageSection { display: none; }
 
-        .loading-box {
-            display: none;
-            text-align: center;
-            padding: 44px 24px;
-        }
-
+        .loading-box { display: none; text-align: center; padding: 44px 24px; }
         .spinner {
-            width: 34px;
-            height: 34px;
+            width: 34px; height: 34px;
             border: 3px solid var(--border);
             border-top-color: var(--accent);
             border-radius: 50%;
             animation: spin 0.75s linear infinite;
             margin: 0 auto 14px;
         }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .loading-box p {
-            color: var(--muted);
-            font-size: 14px;
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-box p { color: var(--muted); font-size: 14px; }
 
         /* SINGLE IMAGE */
-        #singleImageView {
-            display: none;
-        }
-
+        #singleImageView { display: none; }
         .image-wrapper {
             position: relative;
             cursor: pointer;
@@ -307,48 +221,22 @@
             overflow: hidden;
             border: 1.5px solid var(--border);
         }
-
         .tap-hint {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.55);
-            color: #fff;
-            font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 100px;
+            position: absolute; bottom: 10px; right: 10px;
+            background: rgba(0, 0, 0, 0.55); color: #fff;
+            font-size: 11px; padding: 4px 10px; border-radius: 100px;
             pointer-events: none;
         }
+        .generated-img { width: 100%; display: block; border-radius: 8px; }
+        .image-helper { margin-top: 10px; font-size: 12px; color: var(--muted); text-align: center; font-style: italic; }
 
-        .generated-img {
-            width: 100%;
-            display: block;
-            border-radius: 8px;
-        }
-
-        .image-helper {
-            margin-top: 10px;
-            font-size: 12px;
-            color: var(--muted);
-            text-align: center;
-            font-style: italic;
-        }
-
-        /* DUAL IMAGE */
-        #dualImageView {
-            display: none;
-        }
-
-        .dual-label {
-            font-size: 13px;
-            color: var(--muted);
-            text-align: center;
-            margin-bottom: 12px;
-        }
+        /* DUAL/TRIPLE IMAGE */
+        #dualImageView { display: none; }
+        .dual-label { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 12px; }
 
         .images-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 10px;
             margin-bottom: 8px;
         }
@@ -361,116 +249,43 @@
             transition: border-color 0.2s, transform 0.15s;
             position: relative;
         }
-
-        .selectable-image:hover {
-            transform: scale(1.01);
-        }
-
-        .selectable-image.selected {
-            border-color: var(--accent);
-        }
-
-        .selectable-image img {
-            width: 100%;
-            display: block;
-        }
+        .selectable-image:hover { transform: scale(1.01); }
+        .selectable-image.selected { border-color: var(--accent); }
+        .selectable-image img { width: 100%; display: block; }
 
         .select-badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: var(--accent);
-            color: #fff;
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 10px;
-            padding: 3px 10px;
-            border-radius: 100px;
-            display: none;
+            position: absolute; top: 8px; left: 8px;
+            background: var(--accent); color: #fff;
+            font-family: 'Syne', sans-serif; font-weight: 800; font-size: 10px;
+            padding: 3px 10px; border-radius: 100px; display: none;
         }
-
-        .selectable-image.selected .select-badge {
-            display: block;
-        }
+        .selectable-image.selected .select-badge { display: block; }
 
         .expand-hint {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            background: rgba(0, 0, 0, 0.55);
-            color: #fff;
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 100px;
+            position: absolute; bottom: 8px; right: 8px;
+            background: rgba(0, 0, 0, 0.55); color: #fff;
+            font-size: 11px; padding: 3px 8px; border-radius: 100px;
         }
-
-        .select-instruction {
-            text-align: center;
-            font-size: 12px;
-            color: var(--muted);
-            margin-top: 6px;
-            font-style: italic;
-        }
+        .select-instruction { text-align: center; font-size: 12px; color: var(--muted); margin-top: 6px; font-style: italic; }
 
         /* LIGHTBOX */
         #lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            display: none; position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.92); z-index: 999;
+            justify-content: center; align-items: center; padding: 20px;
         }
-
-        #lightbox.open {
-            display: flex;
-        }
-
-        #lightbox img {
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 12px;
-            object-fit: contain;
-        }
-
+        #lightbox.open { display: flex; }
+        #lightbox img { max-width: 100%; max-height: 90vh; border-radius: 12px; object-fit: contain; }
         #lightbox .close-hint {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5); font-size: 13px;
         }
 
         /* SUCCESS */
-        #successSection {
-            display: none;
-            text-align: center;
-            padding: 48px 24px;
-        }
-
-        .success-icon {
-            font-size: 52px;
-            margin-bottom: 18px;
-            display: block;
-        }
-
-        .success-title {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 26px;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .success-sub {
-            color: var(--muted);
-            font-size: 14px;
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
+        #successSection { display: none; text-align: center; padding: 48px 24px; }
+        .success-icon { font-size: 52px; margin-bottom: 18px; display: block; }
+        .success-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 26px; margin-bottom: 8px; color: var(--text); }
+        .success-sub { color: var(--muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
 
         .queue-badge {
             display: inline-block;
@@ -481,21 +296,8 @@
             margin-bottom: 20px;
             box-shadow: 0 4px 20px rgba(45, 45, 143, 0.12);
         }
-
-        .queue-badge-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--muted);
-            margin-bottom: 6px;
-        }
-
-        .queue-badge-id {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 32px;
-            color: var(--accent);
-        }
+        .queue-badge-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 6px; }
+        .queue-badge-id { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 32px; color: var(--accent); }
 
         .save-callout {
             background: var(--accent-light);
@@ -508,24 +310,9 @@
             gap: 12px;
             text-align: left;
         }
-
-        .save-callout-icon {
-            font-size: 20px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .save-callout-text {
-            font-size: 13px;
-            line-height: 1.5;
-            color: #3a3a9a;
-        }
-
-        .save-callout-text strong {
-            color: var(--accent);
-            display: block;
-            margin-bottom: 3px;
-        }
+        .save-callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+        .save-callout-text { font-size: 13px; line-height: 1.5; color: #3a3a9a; }
+        .save-callout-text strong { color: var(--accent); display: block; margin-bottom: 3px; }
 
         /* FOOTER */
         .site-footer {
@@ -539,33 +326,10 @@
             justify-content: space-between;
             box-shadow: var(--shadow);
         }
-
-        .footer-left {
-            font-size: 11px;
-            color: #bbb;
-            font-weight: 400;
-            white-space: nowrap;
-        }
-
-        .footer-middle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-middle img {
-            height: 120px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .footer-qr img {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-        }
+        .footer-left { font-size: 11px; color: #bbb; font-weight: 400; white-space: nowrap; }
+        .footer-middle { display: flex; align-items: center; gap: 8px; }
+        .footer-middle img { height: 120px; width: auto; object-fit: contain; }
+        .footer-qr img { width: 100px; height: 100px; object-fit: contain; border-radius: 4px; border: 1px solid var(--border); }
     </style>
 </head>
 
@@ -588,8 +352,7 @@
                 <img src="assets/zycusLogo.png" alt="Zycus" />
             </div>
             <h1>Zycus AI T-Shirt & Tote Bag Studio</h1>
-            <p class="subtitle">Create your custom AI-generated design and watch it become a personalized Zycus keepsake
-                — produced live by House of Etch</p>
+            <p class="subtitle">Create your custom AI-generated design and watch it become a personalized Zycus keepsake — produced live by House of Etch</p>
         </div>
 
         <!-- MAIN FORM -->
@@ -608,8 +371,10 @@
                 </div>
                 <div class="row">
                     <div class="field">
-                        <label>Email <span class="opt">optional</span></label>
-                        <input type="email" id="email" placeholder="john@email.com" />
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="john@email.com"
+                            oninput="validateEmail(this)" onblur="validateEmail(this)" />
+                        <p class="field-error" id="emailError">Please enter a valid email address.</p>
                     </div>
                     <div class="field">
                         <label>Phone <span class="opt">optional</span></label>
@@ -644,12 +409,10 @@
                 <p class="card-title">Your Design Prompt</p>
                 <div class="field">
                     <label>Describe what you want</label>
-                    <textarea id="prompt"
-                        placeholder="Example: A retro Miami sunset with palm trees, neon colors, and my initials."></textarea>
+                    <textarea id="prompt" placeholder="Example: A retro Miami sunset with palm trees, neon colors, and my initials."></textarea>
                     <p class="helper">The more detail you give, the better the result.</p>
                 </div>
-                <button class="btn btn-generate" id="generateBtn" onclick="generateImage()">✦ Generate My
-                    Design</button>
+                <button class="btn btn-generate" id="generateBtn" onclick="generateImage()">✦ Generate My Design</button>
             </div>
 
             <!-- IMAGE SECTION -->
@@ -661,36 +424,39 @@
                     <p id="loadingText">Creating your design…</p>
                 </div>
 
+                <!-- Single image: attempt 1 -->
                 <div id="singleImageView">
                     <div class="image-wrapper" onclick="openLightbox(generatedImages[0])">
                         <img id="singleImg" class="generated-img" src="" alt="Your design" />
                         <span class="tap-hint">👆 Tap to enlarge</span>
                     </div>
-                    <p class="image-helper">Not happy with this? Edit your prompt above and click <strong>Generate My
-                            Design</strong> again.</p>
+                    <p class="image-helper">Not happy with this? Edit your prompt above and click <strong>Generate My Design</strong> again.</p>
                 </div>
 
+                <!-- Multi images: attempts 2 and 3 -->
                 <div id="dualImageView">
                     <p class="dual-label">Tap an image to select it, then approve.</p>
                     <div class="images-grid">
                         <div class="selectable-image" id="card1" onclick="selectImage(0)">
                             <img id="dualImg1" src="" alt="Design 1" />
                             <span class="select-badge">✓ Selected</span>
-                            <span class="expand-hint"
-                                onclick="event.stopPropagation(); openLightbox(generatedImages[0])">🔍</span>
+                            <span class="expand-hint" onclick="event.stopPropagation(); openLightbox(generatedImages[0])">🔍</span>
                         </div>
                         <div class="selectable-image" id="card2" onclick="selectImage(1)">
                             <img id="dualImg2" src="" alt="Design 2" />
                             <span class="select-badge">✓ Selected</span>
-                            <span class="expand-hint"
-                                onclick="event.stopPropagation(); openLightbox(generatedImages[1])">🔍</span>
+                            <span class="expand-hint" onclick="event.stopPropagation(); openLightbox(generatedImages[1])">🔍</span>
+                        </div>
+                        <div class="selectable-image" id="card3" onclick="selectImage(2)" style="display:none;">
+                            <img id="dualImg3" src="" alt="Design 3" />
+                            <span class="select-badge">✓ Selected</span>
+                            <span class="expand-hint" onclick="event.stopPropagation(); openLightbox(generatedImages[2])">🔍</span>
                         </div>
                     </div>
                     <p class="select-instruction" id="selectInstruction">Tap a design to select it</p>
                 </div>
 
-                <button class="btn btn-approve" id="approveBtn" onclick="approveImage()" disabled>✓ Approve &amp;
-                    Submit</button>
+                <button class="btn btn-approve" id="approveBtn" onclick="approveImage()" disabled>✓ Approve &amp; Submit</button>
             </div>
         </div>
 
@@ -698,8 +464,7 @@
         <div id="successSection">
             <span class="success-icon">🎉</span>
             <p class="success-title">You're in the queue!</p>
-            <p class="success-sub">Your design has been sent to the print team.<br />Please wait for your name to be
-                called.</p>
+            <p class="success-sub">Your design has been sent to the print team.<br />Please wait for your name to be called.</p>
             <div class="queue-badge">
                 <p class="queue-badge-label">Your Order ID</p>
                 <p class="queue-badge-id" id="queueDisplay">—</p>
@@ -708,8 +473,7 @@
                 <span class="save-callout-icon">📸</span>
                 <div class="save-callout-text">
                     <strong>Save your Order ID!</strong>
-                    Take a screenshot of this screen or note it down — you'll need it to collect your item when it's
-                    ready.
+                    Take a screenshot of this screen or note it down — you'll need it to collect your item when it's ready.
                 </div>
             </div>
         </div>
@@ -729,15 +493,15 @@
 
     <script>
         // ── CONFIG ──────────────────────────────────────────────────────
-        const N8N_IMAGE_WEBHOOK = 'https://houseofetch.app.n8n.cloud/webhook/161a5c82-e471-4036-b037-6d65de04407e';
+        const N8N_IMAGE_WEBHOOK  = 'https://houseofetch.app.n8n.cloud/webhook/161a5c82-e471-4036-b037-6d65de04407e';
         const N8N_SUBMIT_WEBHOOK = 'https://houseofetch.app.n8n.cloud/webhook/b2fdf95f-b5c9-4518-8fec-927b5e7ca5cd';
         const MAX_ATTEMPTS = 3;
         // ───────────────────────────────────────────────────────────────
 
-        let attemptCount = 0;
+        let attemptCount    = 0;
         let generatedImages = [];
-        let selectedIndex = -1;
-        let queueId = '';
+        let selectedIndex   = -1;
+        let queueId         = '';
 
         function handleProductChange() {
             const val = document.getElementById('product').value;
@@ -750,17 +514,40 @@
             return `${pad(n.getHours())}${pad(n.getMinutes())}${pad(n.getSeconds())}`;
         }
 
+        function validateEmail(input) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const error = document.getElementById('emailError');
+            const val = input.value.trim();
+            if (val === '') {
+                input.classList.remove('error');
+                error.classList.remove('visible');
+                return;
+            }
+            if (!emailRegex.test(val)) {
+                input.classList.add('error');
+                error.classList.add('visible');
+            } else {
+                input.classList.remove('error');
+                error.classList.remove('visible');
+            }
+        }
+
         function validate() {
             const fn = document.getElementById('firstName').value.trim();
             const ln = document.getElementById('lastName').value.trim();
+            const em = document.getElementById('email').value.trim();
             const pr = document.getElementById('product').value;
             const sz = document.getElementById('size').value;
             const pt = document.getElementById('prompt').value.trim();
-            if (!fn) { alert('Please enter your first name.'); return false; }
-            if (!ln) { alert('Please enter your last name.'); return false; }
-            if (!pr) { alert('Please select a product.'); return false; }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!fn) { alert('Please enter your first name.');       return false; }
+            if (!ln) { alert('Please enter your last name.');        return false; }
+            if (!em) { alert('Please enter your email address.');    return false; }
+            if (!emailRegex.test(em)) { alert('Please enter a valid email address.'); return false; }
+            if (!pr) { alert('Please select a product.');            return false; }
             if (pr === 'T-Shirt' && !sz) { alert('Please select a size.'); return false; }
-            if (!pt) { alert('Please describe your design.'); return false; }
+            if (!pt) { alert('Please describe your design.');        return false; }
             return true;
         }
 
@@ -778,6 +565,7 @@
             selectedIndex = index;
             document.getElementById('card1').classList.toggle('selected', index === 0);
             document.getElementById('card2').classList.toggle('selected', index === 1);
+            document.getElementById('card3').classList.toggle('selected', index === 2);
             document.getElementById('selectInstruction').textContent = `Design ${index + 1} selected — tap Approve to confirm.`;
             document.getElementById('approveBtn').disabled = false;
         }
@@ -789,66 +577,77 @@
             attemptCount++;
             if (!queueId) queueId = makeQueueId();
 
-            const isSecond = attemptCount === MAX_ATTEMPTS;
             const prompt = document.getElementById('prompt').value.trim();
 
-            document.getElementById('imageSection').style.display = 'block';
-            document.getElementById('loadingBox').style.display = 'block';
+            document.getElementById('imageSection').style.display    = 'block';
+            document.getElementById('loadingBox').style.display      = 'block';
             document.getElementById('singleImageView').style.display = 'none';
-            document.getElementById('dualImageView').style.display = 'none';
-            document.getElementById('approveBtn').disabled = true;
-            document.getElementById('generateBtn').disabled = true;
+            document.getElementById('dualImageView').style.display   = 'none';
+            document.getElementById('approveBtn').disabled           = true;
+            document.getElementById('generateBtn').disabled          = true;
 
-            if (isSecond) {
+            if (attemptCount === 2) {
                 document.getElementById('loadingText').textContent = 'Generating your second design…';
+            } else if (attemptCount === 3) {
+                document.getElementById('loadingText').textContent = 'Generating your third design…';
+            } else {
+                document.getElementById('loadingText').textContent = 'Creating your design…';
             }
 
             try {
-                const res = await fetch(N8N_IMAGE_WEBHOOK, {
-                    method: 'POST',
+                const res  = await fetch(N8N_IMAGE_WEBHOOK, {
+                    method:  'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt })
+                    body:    JSON.stringify({ prompt })
                 });
                 const data = await res.json();
-                const url = data.image_url;
+                const url  = data.image_url;
                 generatedImages.push(url);
 
                 document.getElementById('loadingBox').style.display = 'none';
 
                 if (attemptCount === 1) {
-                    document.getElementById('singleImg').src = url;
+                    // ── FIRST IMAGE ─────────────────────────────────
+                    document.getElementById('singleImg').src                = url;
                     document.getElementById('singleImageView').style.display = 'block';
-                    document.getElementById('generateBtn').disabled = false;
-                    document.getElementById('approveBtn').disabled = false;
+                    document.getElementById('generateBtn').disabled          = false;
+                    document.getElementById('approveBtn').disabled           = false;
+
                 } else {
-                    // Show however many images we have
-                    document.getElementById('dualImageView').style.display = 'block';
+                    // ── 2nd OR 3rd IMAGE — show grid ─────────────────
+                    document.getElementById('dualImageView').style.display   = 'block';
                     document.getElementById('imageSectionTitle').textContent = 'Choose Your Design';
-                    document.getElementById('approveBtn').disabled = true;
+                    document.getElementById('approveBtn').disabled           = true;
+
+                    // Reset selection state
                     selectedIndex = -1;
                     document.getElementById('card1').classList.remove('selected');
                     document.getElementById('card2').classList.remove('selected');
                     document.getElementById('card3').classList.remove('selected');
+                    document.getElementById('selectInstruction').textContent = 'Tap a design to select it';
 
-                    // Show/hide cards based on count
+                    // Always update both images shown so far
                     document.getElementById('dualImg1').src = generatedImages[0];
                     document.getElementById('dualImg2').src = generatedImages[1];
-                    document.getElementById('imgCard2').style.display = 'block';
 
                     if (generatedImages.length === 3) {
-                        document.getElementById('dualImg3').src = generatedImages[2];
-                        document.getElementById('imgCard3').style.display = 'block';
-                        document.getElementById('prompt').disabled = true;
-                        document.getElementById('generateBtn').disabled = true;
-                        document.getElementById('generateBtn').textContent = '✕ Max attempts reached';
+                        // Show third card
+                        document.getElementById('dualImg3').src             = generatedImages[2];
+                        document.getElementById('card3').style.display      = 'block';
+                        // Lock prompt and generate
+                        document.getElementById('prompt').disabled          = true;
+                        document.getElementById('generateBtn').disabled     = true;
+                        document.getElementById('generateBtn').textContent  = '✕ Max attempts reached';
                     } else {
-                        document.getElementById('imgCard3').style.display = 'none';
+                        // Still on attempt 2 — keep generate enabled
+                        document.getElementById('card3').style.display      = 'none';
+                        document.getElementById('generateBtn').disabled     = false;
                     }
                 }
 
             } catch (err) {
                 document.getElementById('loadingBox').style.display = 'none';
-                document.getElementById('generateBtn').disabled = false;
+                document.getElementById('generateBtn').disabled     = false;
                 alert('Something went wrong. Please try again.');
                 attemptCount--;
                 generatedImages.pop();
@@ -861,28 +660,19 @@
                 const img = new Image();
                 img.crossOrigin = 'anonymous';
                 img.onload = () => {
-                    const padding = 40;
                     const labelHeight = 50;
                     const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
+                    canvas.width  = img.width;
                     canvas.height = img.height + labelHeight;
-
                     const ctx = canvas.getContext('2d');
-
-                    // Draw image
                     ctx.drawImage(img, 0, 0);
-
-                    // Draw label bar
                     ctx.fillStyle = '#ffffff';
                     ctx.fillRect(0, img.height, img.width, labelHeight);
-
-                    // Draw filename text
                     ctx.fillStyle = '#111111';
                     ctx.font = `bold ${Math.round(img.width * 0.03)}px Arial`;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                     ctx.fillText(label, img.width / 2, img.height + labelHeight / 2);
-
                     resolve(canvas.toDataURL('image/png').split(',')[1]);
                 };
                 img.onerror = reject;
@@ -899,21 +689,20 @@
                 finalUrl = generatedImages[selectedIndex];
             }
 
-            document.getElementById('approveBtn').disabled = true;
+            document.getElementById('approveBtn').disabled    = true;
             document.getElementById('approveBtn').textContent = 'Converting image…';
 
-            const now = new Date();
+            const now       = new Date();
             const eventDate = String(now.getMonth() + 1).padStart(2, '0') +
-                String(now.getDate()).padStart(2, '0') +
-                String(now.getFullYear()).slice(-2);
-            const product = document.getElementById('product').value.replace(/\s+/g, '');
+                              String(now.getDate()).padStart(2, '0') +
+                              String(now.getFullYear()).slice(-2);
+            const product   = document.getElementById('product').value.replace(/\s+/g, '');
             const firstName = document.getElementById('firstName').value.trim();
-            const filename = `${queueId}_${firstName}_${product}_${eventDate}.png`;
+            const filename  = `${queueId}_${firstName}_${product}_${eventDate}.png`;
 
             let base64Png = '';
             try {
                 base64Png = await convertToPng(finalUrl, filename);
-
             } catch (err) {
                 console.warn('Canvas conversion failed:', err);
             }
@@ -921,34 +710,34 @@
             document.getElementById('approveBtn').textContent = 'Submitting…';
 
             const payload = {
-                queue_id: queueId,
-                timestamp: new Date().toISOString(),
-                first_name: firstName,
-                last_name: document.getElementById('lastName').value.trim(),
-                email: document.getElementById('email').value.trim() || 'N/A',
-                phone: document.getElementById('phone').value.trim() || 'N/A',
-                product: document.getElementById('product').value,
-                size: document.getElementById('size').value || 'N/A',
-                prompt: document.getElementById('prompt').value.trim(),
-                image_url: finalUrl,
+                queue_id:     queueId,
+                timestamp:    new Date().toISOString(),
+                first_name:   firstName,
+                last_name:    document.getElementById('lastName').value.trim(),
+                email:        document.getElementById('email').value.trim() || 'N/A',
+                phone:        document.getElementById('phone').value.trim() || 'N/A',
+                product:      document.getElementById('product').value,
+                size:         document.getElementById('size').value || 'N/A',
+                prompt:       document.getElementById('prompt').value.trim(),
+                image_url:    finalUrl,
                 image_base64: base64Png,
-                filename: filename,
-                status: 'Pending'
+                filename:     filename,
+                status:       'Pending'
             };
 
             try {
                 await fetch(N8N_SUBMIT_WEBHOOK, {
-                    method: 'POST',
+                    method:  'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body:    JSON.stringify(payload)
                 });
             } catch (err) {
                 console.error('Submit webhook error:', err);
             }
 
-            document.getElementById('mainForm').style.display = 'none';
+            document.getElementById('mainForm').style.display       = 'none';
             document.getElementById('successSection').style.display = 'block';
-            document.getElementById('queueDisplay').textContent = queueId;
+            document.getElementById('queueDisplay').textContent     = queueId;
         }
 
         function handleReset() {
@@ -961,37 +750,42 @@
         }
 
         function doReset() {
-            attemptCount = 0;
+            attemptCount    = 0;
             generatedImages = [];
-            selectedIndex = -1;
-            queueId = '';
+            selectedIndex   = -1;
+            queueId         = '';
 
             ['firstName', 'lastName', 'prompt'].forEach(id => {
-                document.getElementById(id).value = '';
+                document.getElementById(id).value    = '';
                 document.getElementById(id).disabled = false;
             });
+
             document.getElementById('email').value = '';
-            document.getElementById('phone').value = '';
+            document.getElementById('email').classList.remove('error');
+            document.getElementById('emailError').classList.remove('visible');
+            document.getElementById('phone').value   = '';
             document.getElementById('product').value = '';
-            document.getElementById('size').value = '';
+            document.getElementById('size').value    = '';
             document.getElementById('sizeField').style.display = 'none';
 
-            document.getElementById('generateBtn').disabled = false;
+            document.getElementById('generateBtn').disabled    = false;
             document.getElementById('generateBtn').textContent = '✦ Generate My Design';
-            document.getElementById('approveBtn').disabled = true;
-            document.getElementById('approveBtn').textContent = '✓ Approve & Submit';
+            document.getElementById('approveBtn').disabled     = true;
+            document.getElementById('approveBtn').textContent  = '✓ Approve & Submit';
 
-            document.getElementById('imageSection').style.display = 'none';
+            document.getElementById('imageSection').style.display    = 'none';
             document.getElementById('singleImageView').style.display = 'none';
-            document.getElementById('dualImageView').style.display = 'none';
-            document.getElementById('loadingBox').style.display = 'none';
-            document.getElementById('successSection').style.display = 'none';
-            document.getElementById('mainForm').style.display = 'block';
+            document.getElementById('dualImageView').style.display   = 'none';
+            document.getElementById('loadingBox').style.display      = 'none';
+            document.getElementById('successSection').style.display  = 'none';
+            document.getElementById('mainForm').style.display        = 'block';
 
             document.getElementById('imageSectionTitle').textContent = 'Your Design';
-            document.getElementById('loadingText').textContent = 'Creating your design…';
+            document.getElementById('loadingText').textContent       = 'Creating your design…';
             document.getElementById('card1').classList.remove('selected');
             document.getElementById('card2').classList.remove('selected');
+            document.getElementById('card3').classList.remove('selected');
+            document.getElementById('card3').style.display           = 'none';
             document.getElementById('selectInstruction').textContent = 'Tap a design to select it';
         }
     </script>
