@@ -588,7 +588,8 @@
                 <img src="assets/zycusLogo.png" alt="Zycus" />
             </div>
             <h1>Zycus AI T-Shirt & Tote Bag Studio</h1>
-            <p class="subtitle">Create your custom AI-generated design and watch it become a personalized Zycus keepsake — produced live by House of Etch</p>
+            <p class="subtitle">Create your custom AI-generated design and watch it become a personalized Zycus keepsake
+                — produced live by House of Etch</p>
         </div>
 
         <!-- MAIN FORM -->
@@ -730,7 +731,7 @@
         // ── CONFIG ──────────────────────────────────────────────────────
         const N8N_IMAGE_WEBHOOK = 'https://houseofetch.app.n8n.cloud/webhook/161a5c82-e471-4036-b037-6d65de04407e';
         const N8N_SUBMIT_WEBHOOK = 'https://houseofetch.app.n8n.cloud/webhook/b2fdf95f-b5c9-4518-8fec-927b5e7ca5cd';
-        const MAX_ATTEMPTS = 2;
+        const MAX_ATTEMPTS = 3;
         // ───────────────────────────────────────────────────────────────
 
         let attemptCount = 0;
@@ -814,20 +815,35 @@
 
                 document.getElementById('loadingBox').style.display = 'none';
 
-                if (!isSecond) {
+                if (attemptCount === 1) {
                     document.getElementById('singleImg').src = url;
                     document.getElementById('singleImageView').style.display = 'block';
                     document.getElementById('generateBtn').disabled = false;
                     document.getElementById('approveBtn').disabled = false;
                 } else {
-                    document.getElementById('dualImg1').src = generatedImages[0];
-                    document.getElementById('dualImg2').src = generatedImages[1];
+                    // Show however many images we have
                     document.getElementById('dualImageView').style.display = 'block';
                     document.getElementById('imageSectionTitle').textContent = 'Choose Your Design';
-                    document.getElementById('prompt').disabled = true;
-                    document.getElementById('generateBtn').disabled = true;
-                    document.getElementById('generateBtn').textContent = '✕ Max attempts reached';
                     document.getElementById('approveBtn').disabled = true;
+                    selectedIndex = -1;
+                    document.getElementById('card1').classList.remove('selected');
+                    document.getElementById('card2').classList.remove('selected');
+                    document.getElementById('card3').classList.remove('selected');
+
+                    // Show/hide cards based on count
+                    document.getElementById('dualImg1').src = generatedImages[0];
+                    document.getElementById('dualImg2').src = generatedImages[1];
+                    document.getElementById('imgCard2').style.display = 'block';
+
+                    if (generatedImages.length === 3) {
+                        document.getElementById('dualImg3').src = generatedImages[2];
+                        document.getElementById('imgCard3').style.display = 'block';
+                        document.getElementById('prompt').disabled = true;
+                        document.getElementById('generateBtn').disabled = true;
+                        document.getElementById('generateBtn').textContent = '✕ Max attempts reached';
+                    } else {
+                        document.getElementById('imgCard3').style.display = 'none';
+                    }
                 }
 
             } catch (err) {
